@@ -17,9 +17,22 @@ exports.register = function () {
     this.inherits('auth/auth_base');
 }
 
+exports.load_auth_ldap_ini = function () {
+    const plugin = this;
+    plugin.cfg = plugin.config.get('auth_ldap.ini', {
+        booleans: [
+            'core.rejectUnauthorized'
+        ],
+    },
+    function () {
+        plugin.load_auth_ldap_ini();
+    });
+}
+
 exports.check_plain_passwd = function (connection, user, passwd, cb) {
     // Get LDAP config
-    const config = this.config.get('auth_ldap.ini');
+    const config = this.cfg;
+
     let ldap_url = 'ldap://127.0.0.1';
     if (config.core.server) {
         ldap_url = config.core.server;
@@ -43,6 +56,7 @@ exports.check_plain_passwd = function (connection, user, passwd, cb) {
     config.dns = Object.keys(config.dns).map(function (v) {
         return config.dns[v];
     })
+
     async.detectSeries(config.dns, function (dn, callback) {
         dn = dn.replace(/%u/g, user);
         client.bind(dn, passwd, function (err) {

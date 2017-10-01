@@ -1,7 +1,7 @@
 {
-  "name": "haraka-plugin-template",
+  "name": "haraka-plugin-auth-ldap",
   "version": "1.0.0",
-  "description": "Haraka plugin that frobnicates email connections",
+  "description": "Haraka plugin that uses an LDAP bind to authenticate users",
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint *.js test/**/*.js",
@@ -11,19 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haraka/haraka-plugin-template.git"
+    "url": "git+https://github.com/haraka/haraka-plugin-auth-ldap.git"
   },
   "keywords": [
     "haraka",
     "plugin",
     "template"
   ],
-  "author": "Welcome Member <happy-haraka-hacker@example.com>",
+  "author": "Haraka Team <haraka.mail@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/haraka/haraka-plugin-template/issues"
+    "url": "https://github.com/haraka/haraka-plugin-auth-ldap/issues"
   },
-  "homepage": "https://github.com/haraka/haraka-plugin-template#readme",
+  "homepage": "https://github.com/haraka/haraka-plugin-auth-ldap#readme",
   "devDependencies": {
     "eslint": ">=3",
     "eslint-plugin-haraka": "*",

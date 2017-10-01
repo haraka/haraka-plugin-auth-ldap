@@ -52,7 +52,7 @@ Example:
 [cov-url]: https://codecov.io/github/haraka/haraka-plugin-auth-ldap
 [clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-auth-ldap/badges/gpa.svg
 [clim-url]: https://codeclimate.com/github/haraka/haraka-plugin-auth-ldap
-[gk-img]: https://badges.greenkeeper.io/haraka/haraka-plugin-auth-ldapsvg
+[gk-img]: https://badges.greenkeeper.io/haraka/haraka-plugin-auth-ldap.svg
 [gk-url]: https://greenkeeper.io/
 [npm-img]: https://nodei.co/npm/haraka-plugin-auth-ldap.png
 [npm-url]: https://www.npmjs.com/package/haraka-plugin-auth-ldap
