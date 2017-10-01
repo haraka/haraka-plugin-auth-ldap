@@ -46,13 +46,13 @@ Example:
 <!-- leave these buried at the bottom of the document -->
 [ci-img]: https://travis-ci.org/haraka/haraka-plugin-auth-ldap.svg
 [ci-url]: https://travis-ci.org/haraka/haraka-plugin-auth-ldap
-[ci-win-img]: https://ci.appveyor.com/api/projects/status/CHANGETHIS?svg=true
-[ci-win-url]: https://ci.appveyor.com/project/haraka/haraka-CHANGETHIS
+[ci-win-img]: https://ci.appveyor.com/api/projects/status/6m1g2de9s9s3bnij?svg=true
+[ci-win-url]: https://ci.appveyor.com/project/msimerson/haraka-plugin-auth-ldap
 [cov-img]: https://codecov.io/github/haraka/haraka-plugin-auth-ldap/coverage.svg
 [cov-url]: https://codecov.io/github/haraka/haraka-plugin-auth-ldap
 [clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-auth-ldap/badges/gpa.svg
 [clim-url]: https://codeclimate.com/github/haraka/haraka-plugin-auth-ldap
-[gk-img]: https://badges.greenkeeper.io/haraka/haraka-plugin-.auth-ldapsvg
+[gk-img]: https://badges.greenkeeper.io/haraka/haraka-plugin-auth-ldapsvg
 [gk-url]: https://greenkeeper.io/
 [npm-img]: https://nodei.co/npm/haraka-plugin-auth-ldap.png
 [npm-url]: https://www.npmjs.com/package/haraka-plugin-auth-ldap
