@@ -15,6 +15,7 @@ exports.hook_capabilities = function (next, connection) {
 
 exports.register = function () {
     this.inherits('auth/auth_base');
+    this.load_auth_ldap_ini();
 }
 
 exports.load_auth_ldap_ini = function () {
