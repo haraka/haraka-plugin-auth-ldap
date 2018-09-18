@@ -1,6 +1,6 @@
 {
   "name": "haraka-plugin-auth-ldap",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Haraka plugin that uses an LDAP bind to authenticate users",
   "main": "index.js",
   "scripts": {
