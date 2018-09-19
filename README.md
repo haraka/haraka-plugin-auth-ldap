@@ -15,7 +15,7 @@ Configuration
 Configuration is stored in `config/auth_ldap.ini` and uses the INI
 style formatting.
 
-Only the `LOGIN` authentication method is supported assuming that passwords in the LDAP database are not stored in cleartext (which would allow for CRAM-MD5). Note that this means passwords will be sent in the clear to the LDAP server unless an `ldaps://` conection is used.
+`PLAIN` and `LOGIN` authentication methods are supported assuming that passwords in the LDAP database are not stored in cleartext (which would allow for CRAM-MD5). Note that this means passwords will be sent in the clear to the LDAP server unless an `ldaps://` conection is used.
 
 Current configuration options in `[core]` are:
 
