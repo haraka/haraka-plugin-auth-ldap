@@ -5,7 +5,7 @@
 
 - ci: replace appveyor & travis with GitHub Actions
 - ci: add GHA shared workflows
-
+- lint: object-shorthand, prefer-template
 
 ### 1.0.2 - 2018-09-18
 
