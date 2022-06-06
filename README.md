@@ -42,8 +42,8 @@ Example:
 
 
 <!-- leave these buried at the bottom of the document -->
-[ci-img]: 
-[ci-url]: 
+[ci-img]: https://github.com/haraka/haraka-plugin-auth-ldap/actions/workflows/ci.yml/badge.svg
+[ci-url]: https://github.com/haraka/haraka-plugin-auth-ldap/actions/workflows/ci.yml
 [cov-img]: https://codecov.io/github/haraka/haraka-plugin-auth-ldap/coverage.svg
 [cov-url]: https://codecov.io/github/haraka/haraka-plugin-auth-ldap
 [clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-auth-ldap/badges/gpa.svg
