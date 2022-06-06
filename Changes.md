@@ -1,4 +1,4 @@
-# 1.0.2 - 2018-09-18
+### Unreleased# 1.0.2 - 2018-09-18
 
 - New: add PLAIN authentication
 
