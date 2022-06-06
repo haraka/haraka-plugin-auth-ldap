@@ -3,6 +3,7 @@
 
 ### [1.0.3] - 2022-06-06
 
+- dep(async): bump version 3.0.1 -> 3.2.3
 - ci: replace appveyor & travis with GitHub Actions
 - ci: add GHA shared workflows
 - lint: object-shorthand, prefer-template
