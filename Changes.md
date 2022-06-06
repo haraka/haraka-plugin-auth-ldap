@@ -7,6 +7,7 @@
 - ci: add GHA shared workflows
 - lint: object-shorthand, prefer-template
 
+
 ### 1.0.2 - 2018-09-18
 
 - New: add PLAIN authentication
@@ -17,7 +18,7 @@
 - Fix: properly load auth_ldap.ini
 
 
-### 1.0.0 - 201_-__-__
+### 1.0.0 - 2017-09-30
 
 - initial release
 
