@@ -16,6 +16,7 @@ beforeEach(function (done) {
     done();  // if a test hangs, assure you called done()
 })
 
+
 describe('auth-ldap', function () {
     it('plugin loads', function () {
         assert.ok(this.plugin);
@@ -79,7 +80,7 @@ describe('check_plain_passwd', function () {
     for (const user of users.slice(0, 2)) {
         it(`validates user ${user.uid}`, function (done) {
             this.timeout(3000);
-            this.plugin.check_plain_passwd(this.connection, user.uid, user.password, function (result) {
+            this.plugin.check_plain_passwd(this.connection, user.uid, user.password, (result) => {
                 assert.equal(true, result);
                 done()
             })
@@ -88,13 +89,9 @@ describe('check_plain_passwd', function () {
 
     it(`rejects invalid user`, function (done) {
         this.timeout(3000);
-        this.plugin.check_plain_passwd(this.connection, 'invalid', 'invalid', function (result) {
+        this.plugin.check_plain_passwd(this.connection, 'invalid', 'invalid', (result) => {
             assert.equal(false, result);
             done();
         })
-    })
-
-    after(function (done) {
-        this.plugin.client.unbind(done)
     })
 })

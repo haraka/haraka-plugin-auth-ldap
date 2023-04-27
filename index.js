@@ -35,34 +35,14 @@ exports.check_plain_passwd = function (connection, user, passwd, cb) {
 
     const rejectUnauthorized = this.cfg.core.rejectUnauthorized ?? true;
 
-    this.client = ldap.createClient({
-        url: ldap_url,
-        timeout: this.cfg.core.timeout ?? 5000,
-        tlsOptions: {
-            rejectUnauthorized
-        }
-    })
-
-    this.client.on('error', (err) => {
-        connection.loginfo(`auth_ldap: client error ${  err.message}`);
-        cb(false);
-    })
-
-    this.client.on('connectError', (err) => {
-        connection.loginfo(`auth_ldap: connection error ${err.message}`);
-        cb(false);
-    })
-
     const dnList = Object.keys(this.cfg.dns).map((v) => {
         return this.cfg.dns[v];
     })
-    console.log(dnList)
 
-    let iter = 0
     let cbCalled = false
+    let iter = 0
 
     function cbOnce (result) {
-        iter++
         if (cbCalled) return
         if (result) {
             cbCalled = true
@@ -74,11 +54,32 @@ exports.check_plain_passwd = function (connection, user, passwd, cb) {
         }
     }
 
+    this.client = ldap.createClient({
+        url: ldap_url,
+        timeout: this.cfg.core.timeout ?? 5000,
+        tlsOptions: {
+            rejectUnauthorized
+        }
+    })
+
+    this.client.on('error', (err) => {
+        connection.loginfo(`auth_ldap: client error ${err.message}`);
+        iter = dnList.length;
+        cbOnce(false);
+    })
+
+    this.client.on('connectError', (err) => {
+        connection.loginfo(`auth_ldap: connection error ${err.message}`);
+        iter = dnList.length;
+        cbOnce(false);
+    })
+
     for (const dn of dnList) {
-        this.client.bind(dn.replace(/%u/g, user), passwd, (err) => {
+        const u = dn.replace(/%u/g, user)
+        this.client.bind(u, passwd, (err) => {
+            iter++;
             if (err) {
-                console.error(`auth_ldap: (${dn}) ${err.message}`);
-                connection.loginfo(`auth_ldap: (${dn}) ${err.message}`);
+                connection.loginfo(`auth_ldap: (${u}) ${err.message}`);
                 cbOnce(false);
             }
             else {
