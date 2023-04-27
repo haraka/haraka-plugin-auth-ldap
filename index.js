@@ -46,9 +46,9 @@ exports.check_plain_passwd = function (connection, user, passwd, cb) {
         if (cbCalled) return
         if (result) {
             cbCalled = true
-            return cb(result)
+            cb(result)
         }
-        if (iter === dnList.length) {
+        else if (iter === dnList.length) {
             cbCalled = true
             cb(result)
         }
@@ -83,9 +83,9 @@ exports.check_plain_passwd = function (connection, user, passwd, cb) {
                 cbOnce(false);
             }
             else {
-                this.client.unbind();
                 cbOnce(true);
             }
+            this.client.unbind();
         })
     }
 }
