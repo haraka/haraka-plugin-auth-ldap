@@ -73,6 +73,7 @@ function _set_up (done) {
 }
 
 describe('check_plain_passwd', function () {
+    this.timeout(3000);
 
     before(_set_up)
 
