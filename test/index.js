@@ -73,12 +73,12 @@ function _set_up (done) {
 }
 
 describe('check_plain_passwd', function () {
-    this.timeout(3000);
 
     before(_set_up)
 
     for (const user of users.slice(0, 2)) {
         it(`validates user ${user.uid}`, function (done) {
+            this.timeout(3000);
             this.plugin.check_plain_passwd(this.connection, user.uid, user.password, function (result) {
                 assert.equal(true, result);
                 done()
@@ -87,6 +87,7 @@ describe('check_plain_passwd', function () {
     }
 
     it(`rejects invalid user`, function (done) {
+        this.timeout(3000);
         this.plugin.check_plain_passwd(this.connection, 'invalid', 'invalid', function (result) {
             assert.equal(false, result);
             done();
