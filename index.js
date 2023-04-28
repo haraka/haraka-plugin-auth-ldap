@@ -1,7 +1,6 @@
 // auth/auth_ldap
 
 const ldap  = require('ldapjs');
-const async = require('async');
 
 exports.hook_capabilities = function (next, connection) {
     // Don't offer AUTH capabilities by default unless session is encrypted
@@ -19,59 +18,74 @@ exports.register = function () {
 }
 
 exports.load_auth_ldap_ini = function () {
-    const plugin = this;
-    plugin.cfg = plugin.config.get('auth_ldap.ini', {
+
+    this.cfg = this.config.get('auth_ldap.ini', {
         booleans: [
             'core.rejectUnauthorized'
         ],
     },
-    function () {
-        plugin.load_auth_ldap_ini();
-    });
+    () => {
+        this.load_auth_ldap_ini();
+    })
 }
 
 exports.check_plain_passwd = function (connection, user, passwd, cb) {
-    // Get LDAP config
-    const config = this.cfg;
 
-    let ldap_url = 'ldap://127.0.0.1';
-    if (config.core.server) {
-        ldap_url = config.core.server;
+    const ldap_url = this.cfg.core.server ? this.cfg.core.server : 'ldap://127.0.0.1';
+
+    const rejectUnauthorized = this.cfg.core.rejectUnauthorized ?? true;
+
+    const dnList = Object.keys(this.cfg.dns).map((v) => {
+        return this.cfg.dns[v];
+    })
+
+    let cbCalled = false
+    let iter = 0
+
+    function cbOnce (result) {
+        if (cbCalled) return
+        if (result) {
+            cbCalled = true
+            cb(result)
+        }
+        else if (iter === dnList.length) {
+            cbCalled = true
+            cb(result)
+        }
     }
-    const rejectUnauthorized = (config.core.rejectUnauthorized != undefined) ?
-        config.core.rejectUnauthorized : true;
 
-    const client = ldap.createClient({
+    this.client = ldap.createClient({
         url: ldap_url,
-        timeout: (config.core.timeout != undefined) ? config.core.timeout : 5000,
+        timeout: this.cfg.core.timeout ?? 5000,
         tlsOptions: {
             rejectUnauthorized
         }
-    });
-
-    client.on('error', function (err) {
-        connection.loginfo(`auth_ldap: client error ${  err.message}`);
-        cb(false);
-    });
-
-    config.dns = Object.keys(config.dns).map(function (v) {
-        return config.dns[v];
     })
 
-    async.detectSeries(config.dns, function (dn, callback) {
-        dn = dn.replace(/%u/g, user);
-        client.bind(dn, passwd, function (err) {
+    this.client.on('error', (err) => {
+        connection.loginfo(`auth_ldap: client error ${err.message}`);
+        iter = dnList.length;
+        cbOnce(false);
+    })
+
+    this.client.on('connectError', (err) => {
+        connection.loginfo(`auth_ldap: connection error ${err.message}`);
+        iter = dnList.length;
+        cbOnce(false);
+    })
+
+    for (const dn of dnList) {
+        const u = dn.replace(/%u/g, user)
+        this.client.bind(u, passwd, (err) => {
+            iter++;
             if (err) {
-                connection.loginfo(`auth_ldap: (${  dn  }) ${  err.message}`);
-                return callback(false);
+                connection.loginfo(`auth_ldap: (${u}) ${err.message}`);
+                cbOnce(false);
             }
             else {
-                client.unbind();
-                return callback(true);
+                cbOnce(true);
             }
+            this.client.unbind();
         })
-    }, function (result) {
-        cb(result);
-    });
+    }
 }
-

@@ -1,6 +1,14 @@
 
 ### Unreleased
 
+### [1.1.0] - 2023-04-27
+
+- chore(es6): use nullish operator, arrow fns
+- dep(async): removed dependency
+- dep(ldapjs): bump version from 1.0.2 to 2.3.3
+- test: add an authentication test
+
+
 ### [1.0.3] - 2022-06-06
 
 - dep(async): bump version 3.0.1 -> 3.2.3
@@ -25,3 +33,4 @@
 
 
 [1.0.3]: https://github.com/haraka/haraka-plugin-auth-ldap/releases/tag/1.0.3
+[1.1.0]: https://github.com/haraka/haraka-plugin-auth-ldap/releases/tag/1.1.0
